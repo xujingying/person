@@ -1,0 +1,22 @@
+*.class
+target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# eclipse #
+.classpath
+.project
+.settings
+
+# .gitignore for intellij #
+*.iml
+*.ipr
+*.iws
+.idea/
+
+.DS_Store
+.DS_Store?
+logs/
