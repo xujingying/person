@@ -1,2 +1,3 @@
-# person
-learn maven and java web project
+# 联系人管理系统
+
+这是我学习使用Java开发的联系人管理系统
