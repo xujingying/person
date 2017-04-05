@@ -48,7 +48,7 @@ public class PersonConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-        DruidPlugin dp = new DruidPlugin("jdbc:mysql://localhost/person",
+        DruidPlugin dp = new DruidPlugin("jdbc:mysql://192.168.0.105/person?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                 "root", "123456");
         me.add(dp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
