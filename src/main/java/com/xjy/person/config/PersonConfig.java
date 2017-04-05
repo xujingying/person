@@ -6,8 +6,12 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
+import com.xjy.person.controller.ContactController;
 import com.xjy.person.controller.IndexController;
+import com.xjy.person.model.Contact;
 import org.pmw.tinylog.Logger;
 
 /**
@@ -24,6 +28,7 @@ public class PersonConfig extends JFinalConfig {
     @Override
     public void configRoute(Routes me) {
         me.add("/", IndexController.class);
+        me.add("/contact", ContactController.class);
     }
 
     @Override
@@ -43,7 +48,12 @@ public class PersonConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-        Logger.info("加载configPlugin...");
+        DruidPlugin dp = new DruidPlugin("jdbc:mysql://localhost/person",
+                "root", "123456");
+        me.add(dp);
+        ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+        me.add(arp);
+        arp.addMapping("contact", Contact.class);
     }
 
 }
