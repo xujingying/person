@@ -78,6 +78,8 @@ public class VagueController extends Controller {
                 .andEqual("c.sex", sex, sex != null && sex.length() > 0)
                 .andLike("c.phone", phone, phone != null && phone.length() > 0)
                 .andBetween("c.birthday", fistdate, lastdate, fistdate != null || lastdate != null)
+                .limit("2")
+                .offset("1")
                 .end();
 
         String sql = sqlInfo.getSql();
