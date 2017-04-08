@@ -6,11 +6,13 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.xjy.person.controller.ContactController;
 import com.xjy.person.controller.IndexController;
+import com.xjy.person.controller.VagueController;
 import com.xjy.person.model.Contact;
 import org.pmw.tinylog.Logger;
 
@@ -29,6 +31,8 @@ public class PersonConfig extends JFinalConfig {
     public void configRoute(Routes me) {
         me.add("/", IndexController.class);
         me.add("/contact", ContactController.class);
+        me.add("/vague", VagueController.class);
+
     }
 
     @Override
@@ -48,8 +52,9 @@ public class PersonConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-        DruidPlugin dp = new DruidPlugin("jdbc:mysql://192.168.0.105/person?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                "root", "123456");
+        loadPropertyFile("/config.properties");
+        DruidPlugin dp = new DruidPlugin(getProperty("database.mysql.url"),
+                getProperty("database.mysql.username"), getProperty("database.mysql.password"));
         me.add(dp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
         me.add(arp);
